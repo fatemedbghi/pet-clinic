@@ -34,16 +34,16 @@ public class OwnerTheoryTest{
 	@Theory
 	public void TestGetPet(String pet_name) {
 		assumeTrue(pet_name != null);
+		assumeTrue(pet_name.trim().length() > 0);
+
 		Pet pet = null;
 		for (int i=0; i<pet_names.length-2; i++) {
 			Pet pet_temp = new Pet();
 			pet_temp.setName(pet_names[i]);
 			owner.addPet(pet_temp);
-			if (pet_names[i] == pet_name) {
-				pet = pet_temp;
-			}
+			if (pet_names[i] == pet_name) {pet = pet_temp;}
 		}
+
 		assertEquals(pet, owner.getPet(pet_name));
 	}
-
 }
