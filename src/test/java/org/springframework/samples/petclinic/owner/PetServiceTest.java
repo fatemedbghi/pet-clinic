@@ -3,10 +3,11 @@ package org.springframework.samples.petclinic.owner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-//import org.junit.jupiter.api.Test;
+
 import org.slf4j.Logger;
 import org.springframework.samples.petclinic.utility.PetTimedCache;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assume.assumeTrue;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -71,11 +72,12 @@ public class PetServiceTest {
 	public static Collection<Object[]> parameters() {
 		SetPet();
 		return Arrays.asList (new Object [][]{
-			{1, dog}, {2, horse}, {3, cat}, {4, hen}, {5, null}
+			{1, dog}, {2, horse}, {3, cat}, {4, hen}, {5, null}, {-1, dog}
 		});
 	}
 	@Test
 	public void FindPetTest(){
+		assumeTrue(id > 0);
 		Pet found_pet = PetSer.findPet(id);
 		assertEquals(pet, found_pet);
 	}
