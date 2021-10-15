@@ -26,7 +26,7 @@ public class OwnerTheoryTest{
 	}
 
 	@DataPoints
-	public static String[] pet_names = {"Max", "Coco", "Charlie", "Milo", null};
+	public static String[] pet_names = {"Max", "Coco", "Charlie", "Milo", null, "   "};
 
 	@DataPoints
 	public static boolean[] ignore_new = {true, false};
