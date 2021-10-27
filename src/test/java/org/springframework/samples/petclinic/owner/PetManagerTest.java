@@ -60,7 +60,10 @@ public class PetManagerTest {
 	}
 
 
-	// Mockisty, State verification
+
+	// Test Doubles Types: Mock
+	// Verification Type: State
+	// Approach: Mockisty
 	@Test
 	public void TestFindOwnerNotNull() {
 		Owner owner = mock(Owner.class);
@@ -69,14 +72,20 @@ public class PetManagerTest {
 		assertEquals(owner, pet_manager.findOwner(1));
 	}
 
-	// Mockisty, State verification
+
+	// Test Doubles Types: Mock
+	// Verification Type: State
+	// Approach: Mockisty
 	@Test
 	public void TestFindOwnerNull() {
 		when(owners.findById(Mockito.anyInt())).thenReturn(null);
 		assertNull(pet_manager.findOwner(1));
 	}
 
-	// Mockisty, Behavior verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestNewPet() {
 		Owner owner = mock(Owner.class);
@@ -85,7 +94,10 @@ public class PetManagerTest {
 		verify(owner).addPet(isA(Pet.class));
 	}
 
-	// Mockisty, State and Behavior ???? verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: State + Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestFindPetNotNull() {
 		Pet pet = mock(Pet.class);
@@ -95,14 +107,20 @@ public class PetManagerTest {
 		verify(log).info("find pet by id {}", 1);
 	}
 
-	// Mockisty, State verification
+
+	// Test Doubles Types: Mock
+	// Verification Type: State
+	// Approach: Mockisty
 	@Test
 	public void TestFindPetNull() {
 		when(pet_time_cache.get(Mockito.anyInt())).thenReturn(null);
 		assertNull(pet_manager.findPet(1));
 	}
 
-	// Mockisty, Behavior verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestSavePet() {
 		Owner owner = mock(Owner.class);
@@ -113,7 +131,10 @@ public class PetManagerTest {
 		verify(pet_time_cache).save(pet);
 	}
 
-	// Mockisty, State verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: State + Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestGetOwnerPets() {
 		Owner owner1 = new Owner();
@@ -131,7 +152,10 @@ public class PetManagerTest {
 		verify(log).info("finding the owner's pets by id {}", owner1.getId());
 	}
 
-	// Mockisty - spy , State and behavior verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: State + Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestGetOwnerPetTypes() {
 		Owner owner1 = new Owner();
@@ -148,7 +172,10 @@ public class PetManagerTest {
 		verify(log).info("finding the owner's petTypes by id {}", owner1.getId());
 	}
 
-	// Mockisty - spy, State and behavior verification
+
+	// Test Doubles Types: Mock + Spy
+	// Verification Type: State + Behavior
+	// Approach: Mockisty
 	@Test
 	public void TestGetVisitsBetween() {
 		int petId = 1;
