@@ -9,75 +9,61 @@ import static org.mockito.Mockito.*;
 public class SimplePriceCalculatorTest {
 
 	public SimplePriceCalculator simplePriceCalculator;
-	double baseCharge;
-	double basePricePerPet;
 	PetType petType;
 	public List<Pet> pets;
 	public Pet pet;
-	UserType userType;
-
 
 	@Before
 	public void setup() {
-		baseCharge = 0;
-		basePricePerPet = 10;
-		petType = mock(PetType.class);
-		pet = mock(Pet.class);
 		simplePriceCalculator = new SimplePriceCalculator();
+		pet = mock(Pet.class);
+		pets = Arrays.asList(pet);
+		petType = mock(PetType.class);
 	}
 
 	@After
 	public void tearDown() {
+		simplePriceCalculator = null;
 	}
 
 	@Test
 	public void calcPrice_rarePet_newUser() {
-		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(true);
-		userType = UserType.NEW;
-		assertEquals(11.4, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(11.4, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.NEW), 0.01);
 	}
 
 	@Test
 	public void calcPrice_rarePet_oldUser() {
-		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(true);
-		userType = UserType.SILVER;
-		assertEquals(12, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(12, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.SILVER), 0.01);
 	}
 
 	@Test
 	public void calcPrice_notRarePet_newUser() {
-		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(false);
-		userType = UserType.NEW;
-		assertEquals(9.5, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(9.5, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.NEW), 0.01);
 	}
 
 	@Test
 	public void calcPrice_notRarePet_oldUser() {
-		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(false);
-		userType = UserType.SILVER;
-		assertEquals(10, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(10, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.SILVER), 0.01);
 	}
 
 	@Test
 	public void calcPrice_noPets_newUser() {
 		pets = new ArrayList<>();
-		userType = UserType.NEW;
-		assertEquals(0, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(0, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.NEW), 0.01);
 	}
 
 	@Test
 	public void calcPrice_noPets_oldUser() {
 		pets = new ArrayList<>();
-		userType = UserType.SILVER;
-		assertEquals(0, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+		assertEquals(0, simplePriceCalculator.calcPrice(pets, 0, 10, UserType.SILVER), 0.01);
 	}
 
 }
