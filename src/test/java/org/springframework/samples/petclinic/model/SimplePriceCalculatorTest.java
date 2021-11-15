@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.model;
 import org.junit.*;
 import java.util.*;
 import org.springframework.samples.petclinic.model.priceCalculators.SimplePriceCalculator;
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -17,13 +16,13 @@ public class SimplePriceCalculatorTest {
 	public Pet pet;
 	UserType userType;
 
+
 	@Before
 	public void setup() {
 		baseCharge = 0;
 		basePricePerPet = 10;
 		petType = mock(PetType.class);
 		pet = mock(Pet.class);
-		pets = Arrays.asList(pet);
 		simplePriceCalculator = new SimplePriceCalculator();
 	}
 
@@ -33,6 +32,7 @@ public class SimplePriceCalculatorTest {
 
 	@Test
 	public void calcPrice_rarePet_newUser() {
+		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(true);
 		userType = UserType.NEW;
@@ -41,6 +41,7 @@ public class SimplePriceCalculatorTest {
 
 	@Test
 	public void calcPrice_rarePet_oldUser() {
+		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(true);
 		userType = UserType.SILVER;
@@ -49,6 +50,7 @@ public class SimplePriceCalculatorTest {
 
 	@Test
 	public void calcPrice_notRarePet_newUser() {
+		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(false);
 		userType = UserType.NEW;
@@ -57,10 +59,25 @@ public class SimplePriceCalculatorTest {
 
 	@Test
 	public void calcPrice_notRarePet_oldUser() {
+		pets = Arrays.asList(pet);
 		when(pet.getType()).thenReturn(petType);
 		when(petType.getRare()).thenReturn(false);
 		userType = UserType.SILVER;
 		assertEquals(10, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+	}
+
+	@Test
+	public void calcPrice_noPets_newUser() {
+		pets = new ArrayList<>();
+		userType = UserType.NEW;
+		assertEquals(0, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
+	}
+
+	@Test
+	public void calcPrice_noPets_oldUser() {
+		pets = new ArrayList<>();
+		userType = UserType.SILVER;
+		assertEquals(0, simplePriceCalculator.calcPrice(pets, baseCharge, basePricePerPet, userType), 0.01);
 	}
 
 }
