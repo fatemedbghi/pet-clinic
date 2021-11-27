@@ -113,6 +113,38 @@ class TriCongruenceTest {
 		Assertions.assertTrue(areCongruent);
 	}
 
+	/*
+	part1 line 15 CACC
+	a = t1arr[0] < 0
+	b = t1arr[0] + t1arr[1] < t1arr[2]
+	p -> a + b
+	CC -> Correlated active clause coverage
+	major clause a: correlated active clause coverage -> {TF,FF}
+	major clause b: correlated active clause coverage -> {FT,FF}
+	TF is not reachable
+	*/
+
+	@Test
+	public void TestAreCongruentCACC_FT()
+	{
+		Triangle t1 = new Triangle(1, 3, 5);
+		Triangle t2 = new Triangle(1, 3, 5);
+		boolean areCongruent = TriCongruence.areCongruent(t1, t2);
+		log.debug("Triangles identified as '{}'.", areCongruent ? "Congruent" : "Not Congruent");
+		Assertions.assertFalse(areCongruent);
+	}
+
+	@Test
+	public void TestAreCongruentCACC_FF()
+	{
+		Triangle t1 = new Triangle(2, 4, 5);
+		Triangle t2 = new Triangle(2, 4, 5);
+		boolean areCongruent = TriCongruence.areCongruent(t1, t2);
+		log.debug("Triangles identified as '{}'.", areCongruent ? "Congruent" : "Congruent");
+		Assertions.assertTrue(areCongruent);
+	}
+
+
 
 	/**
 	 * TODO
