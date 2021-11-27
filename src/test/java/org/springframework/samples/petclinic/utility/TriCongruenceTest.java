@@ -33,6 +33,16 @@ class TriCongruenceTest {
 	near false points -> {FFF}
 	 */
 
+	@UniqueTruePoint(
+		predicate = "a + b + c",
+		dnf = "a + b + c",
+		implicant = "a",
+		valuations = {
+			@Valuation(clause = 'a', valuation = true),
+			@Valuation(clause = 'b', valuation = false),
+			@Valuation(clause = 'c', valuation = false),
+		}
+	)
 	@Test
 	public void TestAreCongruentTFF()
 	{
@@ -43,6 +53,16 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@UniqueTruePoint(
+		predicate = "a + b + c",
+		dnf = "a + b + c",
+		implicant = "b",
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = true),
+			@Valuation(clause = 'c', valuation = false),
+		}
+	)
 	@Test
 	public void TestAreCongruentFTF()
 	{
@@ -53,6 +73,16 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@UniqueTruePoint(
+		predicate = "a + b + c",
+		dnf = "a + b + c",
+		implicant = "c",
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = false),
+			@Valuation(clause = 'c', valuation = true),
+		}
+	)
 	@Test
 	public void TestAreCongruentFFT()
 	{
@@ -63,6 +93,17 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@NearFalsePoint(
+		predicate = "a + b + c",
+		dnf = "a + b + c",
+		implicant = "a",
+		clause = 'a',
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = false),
+			@Valuation(clause = 'c', valuation = false),
+		}
+	)
 	@Test
 	public void TestAreCongruentFFF()
 	{
@@ -83,6 +124,13 @@ class TriCongruenceTest {
 	TF is not reachable
 	 */
 
+	@ClauseCoverage(
+		predicate = "a + b",
+		valuations = {
+			@Valuation(clause = 'a', valuation = true),
+			@Valuation(clause = 'b', valuation = true)
+		}
+	)
 	@Test
 	public void TestAreCongruentCC_TT()
 	{
@@ -93,6 +141,13 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@ClauseCoverage(
+		predicate = "a + b",
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = true)
+		}
+	)
 	@Test
 	public void TestAreCongruentCC_FT()
 	{
@@ -103,6 +158,13 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@ClauseCoverage(
+		predicate = "a + b",
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = false)
+		}
+	)
 	@Test
 	public void TestAreCongruentCC_FF()
 	{
@@ -118,12 +180,20 @@ class TriCongruenceTest {
 	a = t1arr[0] < 0
 	b = t1arr[0] + t1arr[1] < t1arr[2]
 	p -> a + b
-	CC -> Correlated active clause coverage
+	CACC -> Correlated active clause coverage
 	major clause a: correlated active clause coverage -> {TF,FF}
 	major clause b: correlated active clause coverage -> {FT,FF}
 	TF is not reachable
 	*/
 
+	@CACC(
+		predicate = "a + b",
+		majorClause = 'a',
+		valuations = {
+		@Valuation(clause = 'a', valuation = false),
+		@Valuation(clause = 'b', valuation = true)
+	}, predicateValue = false
+	)
 	@Test
 	public void TestAreCongruentCACC_FT()
 	{
@@ -134,6 +204,14 @@ class TriCongruenceTest {
 		Assertions.assertFalse(areCongruent);
 	}
 
+	@CACC(
+		predicate = "a + b",
+		majorClause = 'a',
+		valuations = {
+			@Valuation(clause = 'a', valuation = false),
+			@Valuation(clause = 'b', valuation = false)
+		}, predicateValue = true
+	)
 	@Test
 	public void TestAreCongruentCACC_FF()
 	{
