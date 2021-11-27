@@ -224,9 +224,11 @@ class TriCongruenceTest {
 
 
 
-	/**
-	 * TODO
-	 * explain your answer here
+	/*
+	 predicate = ab + cd
+	 for cutpnfp set = {TTFF, FFTT, TFFF, FTFF, FFTF, FFFT}
+	 for utpc set = {TTFF, TTFT, TTTF, FFTT, FTTT, TFTT}
+	 as we can see cutpnfp does not subsume utpc but detects all fault classes that utpc detects
 	 */
 	private static boolean questionTwo(boolean a, boolean b, boolean c, boolean d, boolean e) {
 		boolean predicate = false;
