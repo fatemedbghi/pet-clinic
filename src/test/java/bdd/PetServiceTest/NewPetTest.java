@@ -17,7 +17,7 @@ public class NewPetTest {
 	private Pet testResultPet;
 	private Owner owner;
 
-	@Given("An owner with Id")
+	@Given("A new owner with Id")
 	public void IsAPet() {
 		owner = new Owner();
 		owner.setFirstName("Merritt");
